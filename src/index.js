@@ -18,7 +18,7 @@ app.get('/', (req, res) =>{
 
 app.post('/resistencia', (req, res) =>{
     console.log(req.body);
-    res.send();
+    res.send('Resistencia registrada, revisa en Gestión.');
 });
 
 app.listen(app.get('port'), () => {
