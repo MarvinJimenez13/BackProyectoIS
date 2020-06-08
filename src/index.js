@@ -7,10 +7,10 @@ var path = require("path");
 app.set('port', 3000);
 app.use(express.json());
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost');
+    res.header('Access-Control-Allow-Origin', 'http://localhost, https://pruebaapipro.000webhostapp.com/');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
-    app.options('http://localhost', (req, res) => {
+    app.options('http://localhost, https://pruebaapipro.000webhostapp.com/', (req, res) => {
         res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');
         res.send();
     });
