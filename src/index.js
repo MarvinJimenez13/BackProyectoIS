@@ -2,14 +2,15 @@ const express = require('express');
 const app = express();
 const moongose = require('mongoose');
 var Resistencia = require('./../models/Resistencia.js');
+var path = require("path");
 
 app.set('port', 3000);
 app.use(express.json());
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', 'http://localhost');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
-    app.options('*', (req, res) => {
+    app.options('http://localhost', (req, res) => {
         res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');
         res.send();
     });
@@ -23,7 +24,7 @@ moongose.connect('mongodb+srv://Marvin:is@cluster0-6ms30.mongodb.net/ProyectoIS?
         .catch(err => console.log(err));
 
 app.get('/', (req, res) =>{
-    res.send("<h1>Servidor funcionando.</h1>")
+    res.sendFile(path.join( __dirname + '/views/index.html'));
 });
 
 app.get('/resistencia/:id', (req, res) =>{
