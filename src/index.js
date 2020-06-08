@@ -3,7 +3,9 @@ const app = express();
 const moongose = require('mongoose');
 var Resistencia = require('./../models/Resistencia.js');
 var path = require("path");
+var publicPath=path.resolve(__dirname,"public");
 
+app.use(express.static(publicPath));
 app.set('port', 3000);
 app.use(express.json());
 app.use((req, res, next) => {
@@ -24,7 +26,7 @@ moongose.connect('mongodb+srv://Marvin:is@cluster0-6ms30.mongodb.net/ProyectoIS?
         .catch(err => console.log(err));
 
 app.get('/', (req, res) =>{
-    res.sendFile(path.join( __dirname + '/views/index.html'));
+    res.sendFile(path.join( __dirname + '/public/index.html'));
 });
 
 app.get('/resistencia/:id', (req, res) =>{
