@@ -53,6 +53,37 @@ app.post('/resistencia', (req, res) =>{
     });
 });
 
+app.delete('/resistencia/:id', (req, res)=>{
+  Resistencia.findOneAndDelete({_id:req.params.id}, function(err,data){
+    if(err)
+      res.status(404).send('No se pudo eliminar la resistencia')
+      else
+     res.status(200).send('Resistencia eliminada');
+
+  });
+});
+
+app.put('resistencia/:id',(req,res)=>{
+  Resistencia.findOneAndUpdate({_id:req.params.id}, function(err,data){
+
+    console.log(req.body);
+    var resistencia = Resistencia({
+        tipo: req.body.tipo,
+        valorNominal: req.body.nominal,
+        tolerancia: req.body.tolerancia,
+        potencia: req.body.potencia
+    });
+
+    resistencia.save(function(err, data) {
+        if (err)
+            res.send('No se pudo guardar los cambios');
+        else
+            res.send('Cambios guardados');
+  });
+
+});
+
+});
 app.listen(process.env.PORT || app.get('port'), () => {
     console.log('Server on port:', app.get('port'));
  });
