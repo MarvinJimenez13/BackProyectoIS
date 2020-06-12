@@ -10,10 +10,10 @@ app.use(express.static(publicPath));
 app.set('port', 3000);
 app.use(express.json());
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', 'http://localhost');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
-    app.options('*', (req, res) => {
+    app.options('http://localhost', (req, res) => {
         res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');
         res.send();
     });
@@ -34,8 +34,15 @@ app.get('/', (req, res) =>{
 /*Obtener detalles de una resistencia*/
 app.get('/resistencia/:id', (req, res) =>{
     Resistencia.find({_id:req.params.id},function(err, documentos){
-        res.send("<h1>" + documentos + "</h1>");
+        res.send(documentos);
       });
+});
+
+/*Obtener resistencias registradas*/
+app.get('/resistencias', (req, res) =>{
+    Resistencia.find({}, function(err, documentos){
+        res.status(200).send(documentos);
+    });
 });
 
 /*Agregar una resistencia*/
@@ -45,7 +52,13 @@ app.post('/resistencia', (req, res) =>{
         tipo: req.body.tipo,
         valorNominal: req.body.nominal,
         tolerancia: req.body.tolerancia,
-        potencia: req.body.potencia
+        potencia: req.body.potencia,
+        colores: {
+            color1: req.body.colores.color1,
+            color2: req.body.colores.color2,
+            color3: req.body.colores.color3,
+            color4: req.body.colores.color4
+        }
     });
     resistencia.save(function(err, data) {
         if (err)
@@ -79,28 +92,3 @@ app.put('/resistencia',(req, res)=>{
 app.listen(process.env.PORT || app.get('port'), () => {
     console.log('Server on port:', app.get('port'));
  });
-
-/*Obtener resistencias registradas*/
-var RequestsController =  {
-
-    getRequests: function(req, res) {
-        console.log(req);
-        var query = {};
-        console.log(req.query);
-    
-        Request.find(query, function (err, elements) {
-    
-            if (err){
-                res.status(500).json({error: false, message: err.message});
-            }
-    
-            return res.status(200).json(elements);
-        });
-    } 
-    module.exports = RequestsController;
-
-/*Se hace la petición de los datos (petiocion.js)*/
-var mongoose = require('mongoose');
-var Requests = require('../models/request.js');
-var RequestsController = require('../controllers/requests.js');
-datos = RequestsController.getRequests({"estado": "PENDIENTE", "nombre" : "oHms"}); 
