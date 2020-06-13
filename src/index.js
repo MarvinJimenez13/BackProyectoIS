@@ -41,6 +41,7 @@ app.get('/resistencia/:id', (req, res) =>{
 /*Obtener resistencias registradas*/
 app.get('/resistencias', (req, res) =>{
     Resistencia.find({}, function(err, documentos){
+        console.log(documentos);
         res.status(200).send(documentos);
     });
 });
@@ -69,8 +70,8 @@ app.post('/resistencia', (req, res) =>{
 });
 
 /*Eliminar una resistencia*/
-app.delete('/resistencia/:id', (req, res)=>{
-  Resistencia.findOneAndDelete({_id:req.params.id}, function(err, data){
+app.post('/eliminarResistencia', (req, res)=>{
+  Resistencia.findOneAndDelete({_id:req.body.id}, function(err, data){
     if(err)
         res.status(404).send('No se pudo eliminar la resistencia.')
       else
