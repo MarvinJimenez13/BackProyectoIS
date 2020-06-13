@@ -10,10 +10,10 @@ app.use(express.static(publicPath));
 app.set('port', 3000);
 app.use(express.json());
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
-    app.options('http://localhost', (req, res) => {
+    app.options('*', (req, res) => {
         res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');
         res.send();
     });
@@ -81,8 +81,7 @@ app.post('/eliminarResistencia', (req, res)=>{
 
 /*Actualizar una resistencia*/
 app.put('/resistencia',(req, res)=>{
-    Resistencia.findOneAndUpdate({_id:req.body.id}, {tipo:req.body.tipo}, {valorNominal:req.body.nominal},
-        {tolerancia:req.body.tolerancia}, {potencia:req.body.potencia}, function(err, data){
+    Resistencia.findOneAndUpdate({_id:req.body.id}, {'tipo':req.body.tipo, 'valorNominal':req.body.nominal, 'tolerancia':req.body.tolerancia, 'potencia':req.body.potencia, 'colores':req.body.colores}, function(err, data){
         if(err)  
             res.send("Error al actualizar la resistencia.");
         else    
