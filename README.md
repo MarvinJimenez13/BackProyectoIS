@@ -1,4 +1,4 @@
-# Gestor de Resistecias (Frontend)
+# Gestor de Resistecias (Backend)
 Este es el Backend del proyecto de Ingeniera de Software en donde se utilizó
 NodeJS, Express y MongoDB.
 
@@ -9,7 +9,7 @@ Vazquez Rangel  Erick<br>
 
 ## Vista previa
 
-! [](preview.jpg)
+![](preview.jpg)
 
 ## Demo
 Si desea una demostración puede visitar el siguiente enlace: [Proyecto de Ingeniera de Software](https://proyectoresistencias.herokuapp.com/)
