@@ -70,7 +70,7 @@ app.post('/eliminarResistencia', (req, res)=>{
 });
 
 /*Actualizar una resistencia*/
-app.patch('/resistencia',(req, res)=>{
+app.put('/actualizarResistencia',(req, res)=>{
     Resistencia.findOneAndUpdate({_id:req.body.id}, {'tipo':req.body.tipo, 'valorNominal':req.body.nominal, 'tolerancia':req.body.tolerancia, 'potencia':req.body.potencia, 'colores':req.body.colores}, function(err, data){
         if(err)  
             res.send("Error al actualizar la resistencia.");
