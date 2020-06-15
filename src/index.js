@@ -9,19 +9,12 @@ mongoose.set('useFindAndModify', false);
 app.use(express.static(publicPath));
 app.set('port', 3000);
 app.use(express.json());
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://pruebaapipro.000webhostapp.com');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Authorization, Content-Type, Accept');
-    if (req.method === 'OPTIONS') {
-        res.send(200);
-    } else {
-        next();
-    }
-    app.options('https://pruebaapipro.000webhostapp.com', (req, res) => {
-        res.header('Access-Control-Allow-Methods', 'GET, PATCH, POST, DELETE, OPTIONS');
-        res.send();
-    });
-});
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+       next();
+ });
 
 /*Ruta de presentación*/        
 app.get('/', (req, res) =>{
