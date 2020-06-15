@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
+var mongoose = require('./db');
 var Resistencia = require('./../models/Resistencia.js');
 var path = require("path");
 var publicPath=path.resolve(__dirname,"public");
@@ -18,13 +18,6 @@ app.use((req, res, next) => {
         res.send();
     });
 });
-
-mongoose.connect('mongodb+srv://Marvin:is@cluster0-6ms30.mongodb.net/ProyectoIS?retryWrites=true&w=majority',
-        { useNewUrlParser: true })
-        .then(() => {
-            console.log('Conectado a Mongo DB Atlas');
-        })
-        .catch(err => console.log(err));
 
 /*Ruta de presentación*/        
 app.get('/', (req, res) =>{
